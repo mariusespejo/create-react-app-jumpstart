@@ -5,10 +5,6 @@ const delayedResponse = (delay, data) =>
     }, delay);
   });
 
-export function getExample() {
-  return delayedResponse(0, {});
-}
+export const getExample = () => delayedResponse(0, {});
 
-export function postExample() {
-  return delayedResponse(3000, {});
-}
+export const postExample = () => delayedResponse(3000, {});

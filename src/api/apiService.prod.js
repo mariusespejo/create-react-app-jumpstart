@@ -1,30 +1,31 @@
-const API_VERSION = '/v1';
-export const EXAMPLE_ENDPOINT = API_VERSION + '/example';
+const API_BASE = '/api';
+export const EXAMPLE_ENDPOINT = API_BASE + '/example';
 
-const commonFetchConfig = {
+const fetchOptions = {
   headers: {
     Accept: 'application/json;charset=UTF-8',
     'Content-Type': 'application/json;charset=UTF-8'
   },
-  credentials: 'include'
+  credentials: 'include',
+  method: 'GET'
 };
 
-export function getExample() {
-  return fetch(EXAMPLE_ENDPOINT, { ...commonFetchConfig, method: 'GET' }).then(
-    handleHttpResponse
-  );
-}
+const post = body => ({
+  ...fetchOptions,
+  meathod: 'POST',
+  body: JSON.stringify(body)
+});
 
-export function postExample(data) {
-  return fetch(EXAMPLE_ENDPOINT, {
-    ...commonFetchConfig,
-    method: 'POST',
-    body: JSON.stringify(data)
-  }).then(handleHttpResponse);
-}
+export const getExample = () =>
+  fetch(EXAMPLE_ENDPOINT, fetchOptions).then(handleHttpResponse);
 
-function handleHttpResponse(response) {
-  return response.json().then(json => {
-    return response.ok ? json : Promise.reject(json);
-  });
-}
+export const postExample = data =>
+  fetch(EXAMPLE_ENDPOINT, post(data)).then(handleHttpResponse);
+
+const handleHttpResponse = response => {
+  if (response.ok) {
+    return response.json();
+  }
+
+  throw Error(response.statusText);
+};

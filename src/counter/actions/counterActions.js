@@ -14,19 +14,18 @@ export const asyncIncrementFailure = makeActionCreator(
 );
 
 export function asyncIncrementCount() {
-  return function(dispatch) {
-    dispatch(asyncIncrementStarted());
-    return apiService
-      .postExample()
-      .then(() => {
-        dispatch(incrementCount());
-        dispatch(asyncIncrementSucess());
-      })
-      .catch(() => {
-        dispatch(asyncIncrementFailure());
-        alert(
-          'Note: run the app locally with the mock api to see this working :)'
-        );
-      });
+  return async function(dispatch) {
+    try {
+      dispatch(asyncIncrementStarted());
+      const response = await apiService.postExample();
+      dispatch(incrementCount());
+      dispatch(asyncIncrementSucess());
+      return response;
+    } catch (error) {
+      dispatch(asyncIncrementFailure());
+      alert(
+        'Note: run the app locally with the mock api to see this working :)'
+      );
+    }
   };
 }

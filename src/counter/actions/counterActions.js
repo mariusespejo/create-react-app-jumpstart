@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import makeActionCreator from '../../reduxConfig/utils/makeActionCreator';
-import apiService from '../../api/apiService';
+import * as Api from '../../api';
 
 export const incrementCount = makeActionCreator(types.INCREMENT_COUNT);
 export const asyncIncrementStarted = makeActionCreator(
@@ -17,7 +17,7 @@ export function asyncIncrementCount() {
   return async function(dispatch) {
     try {
       dispatch(asyncIncrementStarted());
-      const response = await apiService.postExample();
+      const response = await Api.postExample();
       dispatch(incrementCount());
       dispatch(asyncIncrementSucess());
       return response;

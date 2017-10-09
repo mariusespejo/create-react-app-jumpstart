@@ -2,7 +2,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
 import * as counterActions from './counterActions';
-import { EXAMPLE_ENDPOINT } from '../../api/apiService.prod';
+import { EXAMPLE_ENDPOINT } from '../../api/endpoints.js';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);

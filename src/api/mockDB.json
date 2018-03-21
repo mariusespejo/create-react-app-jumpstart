@@ -2,7 +2,7 @@
   "base": {
     "_links": {
       "resourceName": {
-        "href": "http://localhost:3001/bindings"
+        "href": "http://localhost:3001/hello"
       }
     }
   },
